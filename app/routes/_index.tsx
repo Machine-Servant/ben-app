@@ -10,9 +10,9 @@ export default function Index() {
   const user = useOptionalUser();
   return (
     <main className="relative min-h-screen bg-white sm:flex sm:items-center sm:justify-center">
-      <div className="relative sm:pb-16 sm:pt-8">
-        <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div className="relative shadow-xl sm:overflow-hidden sm:rounded-2xl">
+      <div className="relative h-screen sm:h-auto sm:pb-16 sm:pt-8">
+        <div className="mx-auto h-full max-w-7xl sm:h-auto sm:px-6 lg:px-8">
+          <div className="relative flex h-full shadow-xl sm:block sm:h-auto sm:overflow-hidden sm:rounded-2xl">
             <div className="absolute inset-0">
               <img
                 className="h-full w-full object-cover"
@@ -21,7 +21,7 @@ export default function Index() {
               />
               <div className="absolute inset-0 bg-slate-300 mix-blend-multiply" />
             </div>
-            <div className="relative px-4 pb-8 pt-16 sm:px-6 sm:pb-14 sm:pt-24 lg:px-8 lg:pb-20 lg:pt-32">
+            <div className="relative self-center px-4 pb-8 pt-16 sm:self-auto sm:px-6 sm:pb-14 sm:pt-24 lg:px-8 lg:pb-20 lg:pt-32">
               <h1 className="text-center text-6xl font-extrabold tracking-tight sm:text-8xl lg:text-9xl">
                 <span className="block uppercase text-red-500 drop-shadow-md">
                   Games We Like
