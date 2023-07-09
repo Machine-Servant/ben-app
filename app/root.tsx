@@ -1,9 +1,13 @@
 import { cssBundleHref } from '@remix-run/css-bundle';
+<<<<<<< HEAD
 import type {
   LinksFunction,
   LoaderArgs,
   V2_MetaFunction,
 } from '@remix-run/node';
+=======
+import type { LinksFunction, LoaderArgs } from '@remix-run/node';
+>>>>>>> origin/main
 import { json } from '@remix-run/node';
 import {
   Links,
@@ -18,7 +22,10 @@ import { getUser } from '~/modules/auth';
 import stylesheet from '~/tailwind.css';
 
 export const links: LinksFunction = () => [
+<<<<<<< HEAD
   { rel: 'icon', href: '/favicon.png', type: 'image/png' },
+=======
+>>>>>>> origin/main
   { rel: 'stylesheet', href: stylesheet },
   ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
 ];
