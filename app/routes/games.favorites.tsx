@@ -10,7 +10,7 @@ export const loader = async ({ request }: LoaderArgs) => {
 
 export default function Favorites() {
   return (
-    <div>
+    <div className="flex-1 p-6">
       <h1 className="text-6xl font-bold">Favorites</h1>
     </div>
   );

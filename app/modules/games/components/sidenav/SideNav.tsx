@@ -1,4 +1,5 @@
 import type { User } from '@prisma/client';
+import * as Avatar from '@radix-ui/react-avatar';
 import { Form, Link } from '@remix-run/react';
 
 interface SideNavProps {
@@ -36,7 +37,15 @@ export const SideNav: React.FC<SideNavProps> = ({ user, onItemClick }) => {
       <nav className="mt-auto w-full">
         <ul className="flex flex-col">
           <li className="w-full border-b px-4 py-2 hover:bg-gray-100">
-            Logged in as {user.email}
+            <div className="flex items-center gap-8">
+              <Avatar.Root className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-500">
+                <Avatar.Image />
+                <Avatar.Fallback>
+                  {user.email.slice(0, 1).toUpperCase()}
+                </Avatar.Fallback>
+              </Avatar.Root>
+              {user.email}
+            </div>
           </li>
           <li className="w-full hover:bg-gray-100">
             <Form method="post" action="/logout">
