@@ -76,7 +76,7 @@ export default function Games() {
         <div className="hidden sm:relative sm:flex sm:w-80 sm:translate-x-0 sm:flex-col sm:border-r sm:bg-gray-50">
           <SideNav user={user} />
         </div>
-        <div className="flex-1 p-6">
+        <div className="flex flex-1">
           <Outlet />
         </div>
       </main>
