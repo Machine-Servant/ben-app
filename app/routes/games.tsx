@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { animated, config, useSpring } from '@react-spring/web';
 import type { LoaderArgs } from '@remix-run/node';
 import { json, redirect } from '@remix-run/node';
@@ -8,12 +7,6 @@ import { twMerge } from 'tailwind-merge';
 import { HamburgerIcon } from '~/components/icons';
 import { getUserId } from '~/modules/auth';
 import { SideNav } from '~/modules/games';
-=======
-import type { LoaderArgs } from '@remix-run/node';
-import { json, redirect } from '@remix-run/node';
-import { Form, Link } from '@remix-run/react';
-import { getUserId } from '~/modules/auth';
->>>>>>> origin/main
 import { useUser } from '~/utils';
 
 export const loader = async ({ request }: LoaderArgs) => {
@@ -24,7 +17,6 @@ export const loader = async ({ request }: LoaderArgs) => {
 
 export default function Games() {
   const user = useUser();
-<<<<<<< HEAD
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
   const [style, api] = useSpring(
@@ -57,8 +49,6 @@ export default function Games() {
       });
     }
   }, [isMenuOpen, api]);
-=======
->>>>>>> origin/main
 
   return (
     <div className="flex h-full min-h-screen flex-col">
@@ -66,7 +56,6 @@ export default function Games() {
         <h1 className="text-3xl font-bold">
           <Link to="/games">Games</Link>
         </h1>
-<<<<<<< HEAD
         <button
           className="block sm:hidden"
           onClick={() => setIsMenuOpen((current) => !current)}
@@ -91,18 +80,6 @@ export default function Games() {
           <Outlet />
         </div>
       </main>
-=======
-        <p>{user.email}</p>
-        <Form method="post" action="/logout">
-          <button
-            type="submit"
-            className="rounded bg-slate-600 px-4 py-2 text-blue-100 hover:bg-blue-500 active:bg-blue-600"
-          >
-            Logout
-          </button>
-        </Form>
-      </header>
->>>>>>> origin/main
     </div>
   );
 }
