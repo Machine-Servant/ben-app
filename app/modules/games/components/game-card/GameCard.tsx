@@ -9,7 +9,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game }) => {
   return (
     <Link
       to={`/games/${game.id}`}
-      className="mb-8 flex flex-col gap-4 rounded-lg border border-slate-400 lg:flex-row"
+      className="mb-8 flex flex-col gap-4 overflow-hidden rounded-lg border border-slate-400 lg:flex-row"
     >
       <div className="flex-none lg:w-96">
         {game.background_image ? (
