@@ -1,5 +1,5 @@
 import type { RawgListResponse } from '~/types';
-import type { Game } from './types';
+import type { Game, GameDetails } from './types';
 
 export async function searchForGames(
   searchTerm: string
@@ -13,4 +13,31 @@ export async function searchForGames(
   );
   const json = (await response.json()) as RawgListResponse<Game>;
   return json;
+}
+
+export async function getGameDetails(gameId: number): Promise<GameDetails> {
+  const response = await fetch(
+    `https://api.rawg.io/api/games/${gameId}?key=${process.env.RAWG_API_KEY}`,
+    {
+      method: 'GET',
+    }
+  );
+  const json = (await response.json()) as GameDetails;
+  return json;
+}
+
+export async function getGameScreenshots(gameId: number): Promise<string[]> {
+  const response = await fetch(
+    `https://api.rawg.io/api/games/${gameId}/screenshots?key=${process.env.RAWG_API_KEY}`,
+    {
+      method: 'GET',
+    }
+  );
+  const json = (await response.json()) as {
+    results: {
+      id: number;
+      image: string;
+    }[];
+  };
+  return json.results.map((screenshot) => screenshot.image);
 }
