@@ -51,7 +51,7 @@ export default function Games() {
   }, [isMenuOpen, api]);
 
   return (
-    <div className="flex h-full min-h-screen flex-col">
+    <div className="flex h-full min-h-screen flex-1 flex-col">
       <header className="flex items-center justify-between bg-slate-800 p-4 text-white">
         <h1 className="text-3xl font-bold">
           <Link to="/games">Games</Link>
@@ -63,12 +63,11 @@ export default function Games() {
           <HamburgerIcon className="h-8 w-8 fill-white" />
         </button>
       </header>
-
-      <main className="relative flex flex-1 bg-white">
+      <main className="relative flex flex-1">
         <animated.div
           style={style}
           className={twMerge(
-            'absolute inset-0 flex -translate-x-full flex-col bg-gray-300 sm:hidden'
+            'absolute inset-0 z-10 flex -translate-x-full flex-col bg-gray-300 sm:hidden'
           )}
         >
           <SideNav user={user} onItemClick={() => setIsMenuOpen(false)} />

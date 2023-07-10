@@ -39,11 +39,11 @@ export default function GamesPage() {
   const { searchTerm, games } = useLoaderData<typeof loader>() || {};
 
   return (
-    <div className="flex-1 p-6">
-      <h1 className="text-center text-3xl font-bold sm:text-6xl">
-        Games we want to find
-      </h1>
-      <div className="mt-4">
+    <div className="flex flex-1 flex-col p-6">
+      <div>
+        <h1 className="mb-6 text-center text-3xl font-bold sm:text-6xl">
+          Games we want to find
+        </h1>
         <Form
           method="get"
           action="/games?index"
@@ -105,7 +105,7 @@ export default function GamesPage() {
             </div>
           ))}
       </div>
-      <div className="flex items-center justify-between">
+      <div className="flex w-full items-center justify-between self-end">
         <Link
           to={`/games?index&search=${searchTerm}&uri=${encodeURIComponent(
             games?.previous || ''
@@ -114,7 +114,7 @@ export default function GamesPage() {
             'rounded-md bg-slate-800 px-4 py-2 text-white',
             !games?.previous && 'cursor-not-allowed opacity-25'
           )}
-          onClick={(e) => games?.previous || e.preventDefault}
+          onClick={(e) => games?.previous || e.preventDefault()}
         >
           Previous
         </Link>
@@ -126,7 +126,7 @@ export default function GamesPage() {
             'rounded-md bg-slate-800 px-4 py-2 text-white',
             !games?.next && 'cursor-not-allowed opacity-25'
           )}
-          onClick={(e) => games?.next || e.preventDefault}
+          onClick={(e) => games?.next || e.preventDefault()}
         >
           Next
         </Link>
