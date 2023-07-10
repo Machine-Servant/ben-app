@@ -51,7 +51,7 @@ export default function Games() {
   }, [isMenuOpen, api]);
 
   return (
-    <div className="flex h-full min-h-screen flex-1 flex-col">
+    <div className="flex min-h-screen flex-1 flex-col">
       <header className="flex items-center justify-between bg-slate-800 p-4 text-white">
         <h1 className="text-3xl font-bold">
           <Link to="/games">Games</Link>
