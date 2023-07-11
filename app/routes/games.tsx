@@ -1,12 +1,11 @@
 import { animated, config, useSpring } from '@react-spring/web';
 import type { LoaderArgs } from '@remix-run/node';
 import { json, redirect } from '@remix-run/node';
-import { Link, Outlet } from '@remix-run/react';
-import { useEffect, useState } from 'react';
-import { twMerge } from 'tailwind-merge';
+import { Link, Outlet, useNavigation } from '@remix-run/react';
+import { useEffect, useMemo, useState } from 'react';
 import { HamburgerIcon } from '~/components/icons';
 import { getUserId } from '~/modules/auth';
-import { SideNav } from '~/modules/games';
+import { GameDetails, GamesSearch, SideNav } from '~/modules/games';
 import { useUser } from '~/utils';
 
 export const loader = async ({ request }: LoaderArgs) => {
@@ -50,6 +49,19 @@ export default function Games() {
     }
   }, [isMenuOpen, api]);
 
+  const navigation = useNavigation();
+
+  const OptimisticUI = useMemo(() => {
+    if (navigation.state !== 'loading') return null;
+
+    if (navigation.location?.pathname.match(/\/games$/)) {
+      return <GamesSearch />;
+    }
+    if (navigation.location?.pathname.match(/\/games\/\d+$/)) {
+      return <GameDetails />;
+    }
+  }, [navigation.state, navigation.location?.pathname]);
+
   return (
     <div className="flex min-h-screen flex-1 flex-col">
       <header className="flex items-center justify-between bg-slate-800 p-4 text-white">
@@ -66,9 +78,7 @@ export default function Games() {
       <main className="relative flex flex-1">
         <animated.div
           style={style}
-          className={twMerge(
-            'absolute inset-0 z-10 flex -translate-x-full flex-col bg-gray-300 sm:hidden'
-          )}
+          className="absolute inset-0 z-10 flex -translate-x-full flex-col bg-gray-300 sm:hidden"
         >
           <SideNav user={user} onItemClick={() => setIsMenuOpen(false)} />
         </animated.div>
@@ -76,7 +86,7 @@ export default function Games() {
           <SideNav user={user} />
         </div>
         <div className="flex flex-1">
-          <Outlet />
+          {OptimisticUI ? OptimisticUI : <Outlet />}
         </div>
       </main>
     </div>
