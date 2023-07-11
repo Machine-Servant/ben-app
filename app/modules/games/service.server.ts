@@ -1,3 +1,5 @@
+import type { Favorite } from '@prisma/client';
+import { prisma } from '~/db.server';
 import type { RawgListResponse } from '~/types';
 import type { Game, GameDetails } from './types';
 
@@ -40,4 +42,44 @@ export async function getGameScreenshots(gameId: number): Promise<string[]> {
     }[];
   };
   return json.results.map((screenshot) => screenshot.image);
+}
+
+export async function addOrRemoveGameFromFavorites(
+  userId: string,
+  gameId: number
+): Promise<Favorite> {
+  const found = await prisma.favorite.findUnique({
+    where: {
+      userId_gameId: {
+        userId,
+        gameId,
+      },
+    },
+  });
+
+  if (found) {
+    return prisma.favorite.delete({
+      where: {
+        userId_gameId: {
+          userId,
+          gameId,
+        },
+      },
+    });
+  }
+
+  return prisma.favorite.create({
+    data: {
+      userId,
+      gameId,
+    },
+  });
+}
+
+export async function getFavorites(userId: string): Promise<Favorite[]> {
+  return prisma.favorite.findMany({
+    where: {
+      userId,
+    },
+  });
 }
