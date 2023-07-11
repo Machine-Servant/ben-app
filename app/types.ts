@@ -4,3 +4,10 @@ export type RawgListResponse<T> = {
   previous: string;
   results: T[];
 };
+
+export type NavigationLocationState = {
+  page?: string;
+  meta?: {
+    [k: string]: string;
+  }[];
+};
