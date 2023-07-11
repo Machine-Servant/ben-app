@@ -1,12 +1,9 @@
-import * as ReactForm from '@radix-ui/react-form';
 import type { LoaderArgs } from '@remix-run/node';
 import { json, redirect } from '@remix-run/node';
-import { Form, Link, useLoaderData, useNavigation } from '@remix-run/react';
-import { twMerge } from 'tailwind-merge';
-import { SearchIcon } from '~/components/icons';
+import { useLoaderData, useNavigation } from '@remix-run/react';
 import { getUserId } from '~/modules/auth';
 import type { Game } from '~/modules/games';
-import { GameCard } from '~/modules/games';
+import { GamesSearch } from '~/modules/games/components/games-search';
 import { searchForGames } from '~/modules/games/service.server';
 import type { RawgListResponse } from '~/types';
 
@@ -40,74 +37,10 @@ export default function GamesPage() {
   const { searchTerm, games } = useLoaderData<typeof loader>() || {};
 
   return (
-    <div className="flex flex-1 flex-col p-6">
-      <div>
-        <h1 className="mb-6 text-center text-3xl font-bold sm:text-6xl">
-          Games we want to find
-        </h1>
-        <Form
-          method="get"
-          action="/games?index"
-          className="flex flex-col items-center"
-        >
-          <ReactForm.Root asChild>
-            <ReactForm.Field
-              name="search"
-              className="relative flex w-80 items-center gap-4"
-            >
-              <SearchIcon className="absolute left-2 top-1 h-8 w-8 fill-black" />
-              <ReactForm.Control
-                type="text"
-                placeholder="Search for a game"
-                defaultValue={searchTerm || ''}
-                className="flex-1 rounded-full border border-slate-500 py-2 pl-12 pr-4"
-              />
-              <ReactForm.Submit
-                className="disabled:opacity-25"
-                disabled={navigation.state === 'submitting'}
-              >
-                Go
-              </ReactForm.Submit>
-            </ReactForm.Field>
-          </ReactForm.Root>
-        </Form>
-      </div>
-      <div className="mt-4 flex flex-1 flex-col">
-        {searchTerm && (
-          <h2 className="mb-8 text-center text-2xl font-bold sm:text-4xl">
-            Showing results for "{searchTerm}"
-          </h2>
-        )}
-        {games &&
-          games?.results?.length > 0 &&
-          games.results.map((game) => <GameCard key={game.id} game={game} />)}
-      </div>
-      <div className="flex w-full items-center justify-between self-end">
-        <Link
-          to={`/games?index&search=${searchTerm}&uri=${encodeURIComponent(
-            games?.previous || ''
-          )}`}
-          className={twMerge(
-            'rounded-md bg-slate-800 px-4 py-2 text-white',
-            !games?.previous && 'cursor-not-allowed opacity-25'
-          )}
-          onClick={(e) => games?.previous || e.preventDefault()}
-        >
-          Previous
-        </Link>
-        <Link
-          to={`/games?index&search=${searchTerm}&uri=${encodeURIComponent(
-            games?.next || ''
-          )}`}
-          className={twMerge(
-            'rounded-md bg-slate-800 px-4 py-2 text-white',
-            !games?.next && 'cursor-not-allowed opacity-25'
-          )}
-          onClick={(e) => games?.next || e.preventDefault()}
-        >
-          Next
-        </Link>
-      </div>
-    </div>
+    <GamesSearch
+      searchTerm={searchTerm}
+      games={games}
+      navigationState={navigation.state}
+    />
   );
 }
