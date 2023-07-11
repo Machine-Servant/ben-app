@@ -1,8 +1,11 @@
 import { json, redirect, type LoaderArgs } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 import { getUserId } from '~/modules/auth';
-import { getGameDetails, getGameScreenshots } from '~/modules/games';
-import { GameDetails } from '~/modules/games/components/game-details';
+import {
+  GameDetailsView,
+  getGameDetails,
+  getGameScreenshots,
+} from '~/modules/games';
 
 export const loader = async ({ request, params }: LoaderArgs) => {
   const userId = await getUserId(request);
@@ -26,5 +29,7 @@ export const loader = async ({ request, params }: LoaderArgs) => {
 export default function GameDetailsPage() {
   const { gameDetails, screenshots } = useLoaderData<typeof loader>() || {};
 
-  return <GameDetails gameDetails={gameDetails} screenshots={screenshots} />;
+  return (
+    <GameDetailsView gameDetails={gameDetails} screenshots={screenshots} />
+  );
 }
