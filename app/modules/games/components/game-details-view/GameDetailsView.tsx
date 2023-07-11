@@ -1,11 +1,11 @@
 import type { GameDetails as GameDetailsType } from '../../types';
 
-interface GameDetailsProps {
+interface GameDetailsViewProps {
   gameDetails?: GameDetailsType | null;
   screenshots?: string[] | null;
 }
 
-export const GameDetails: React.FC<GameDetailsProps> = ({
+export const GameDetailsView: React.FC<GameDetailsViewProps> = ({
   gameDetails,
   screenshots,
 }) => {

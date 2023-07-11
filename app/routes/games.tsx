@@ -5,7 +5,7 @@ import { Link, Outlet, useNavigation } from '@remix-run/react';
 import { useEffect, useMemo, useState } from 'react';
 import { HamburgerIcon } from '~/components/icons';
 import { getUserId } from '~/modules/auth';
-import { GameDetails, GamesSearch, SideNav } from '~/modules/games';
+import { GameDetailsView, GamesSearch, SideNav } from '~/modules/games';
 import { useUser } from '~/utils';
 
 export const loader = async ({ request }: LoaderArgs) => {
@@ -58,7 +58,7 @@ export default function Games() {
       return <GamesSearch />;
     }
     if (navigation.location?.pathname.match(/\/games\/\d+$/)) {
-      return <GameDetails />;
+      return <GameDetailsView />;
     }
   }, [navigation.state, navigation.location?.pathname]);
 
