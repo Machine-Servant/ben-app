@@ -4,7 +4,7 @@ import { useLoaderData, useNavigation } from '@remix-run/react';
 import { getUserId } from '~/modules/auth';
 import type { Game } from '~/modules/games';
 import { GamesSearch } from '~/modules/games/components/games-search';
-import { searchForGames } from '~/modules/games/service.server';
+import { getFavorites, searchForGames } from '~/modules/games/service.server';
 import type { RawgListResponse } from '~/types';
 
 export const loader = async ({ request }: LoaderArgs) => {
@@ -26,21 +26,29 @@ export const loader = async ({ request }: LoaderArgs) => {
     games = (await response.json()) as RawgListResponse<Game>;
   }
 
+  const favorites = await getFavorites(userId);
+
   return json({
     searchTerm,
     games,
+    favorites,
   });
 };
 
 export default function GamesPage() {
   const navigation = useNavigation();
-  const { searchTerm, games } = useLoaderData<typeof loader>() || {};
+  const { searchTerm, games, favorites } = useLoaderData<typeof loader>() || {};
 
   return (
     <GamesSearch
       searchTerm={searchTerm}
       games={games}
       navigationState={navigation.state}
+      favorites={favorites.map((favorite) => ({
+        ...favorite,
+        createdAt: new Date(favorite.createdAt),
+        updatedAt: new Date(favorite.updatedAt),
+      }))}
     />
   );
 }
