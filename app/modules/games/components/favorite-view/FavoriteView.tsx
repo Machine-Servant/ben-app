@@ -15,7 +15,6 @@ export const FavoriteView: React.FC<FavoriteProps> = ({ favorite }) => {
   const handleDeleteFavorite = useCallback(
     (e: React.MouseEvent) => {
       e.preventDefault();
-      console.log('???');
       fetcher.submit(formRef.current, { replace: true });
     },
     [fetcher]
@@ -55,7 +54,7 @@ export const FavoriteView: React.FC<FavoriteProps> = ({ favorite }) => {
       )}
       <div className="flex flex-1 flex-col justify-between py-2">
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold">{favorite.name}</h2>
+          <h2 className="text-2xl font-bold text-white">{favorite.name}</h2>
           <div className="mx-4">
             <fetcher.Form
               ref={formRef}
@@ -64,13 +63,13 @@ export const FavoriteView: React.FC<FavoriteProps> = ({ favorite }) => {
             >
               <input type="hidden" name="gameId" value={favorite.gameId} />
               <TrashIcon
-                className="h-8 w-8 cursor-pointer fill-black"
+                className="h-8 w-8 cursor-pointer fill-red-500 hover:fill-red-400"
                 onClick={handleDeleteFavorite}
               />
             </fetcher.Form>
           </div>
         </div>
-        <p className="text-lg text-gray-500">Favorite</p>
+        <p className="text-lg text-gray-300">Favorite</p>
       </div>
     </Link>
   );

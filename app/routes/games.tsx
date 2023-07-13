@@ -75,14 +75,14 @@ export default function Games() {
           <HamburgerIcon className="h-8 w-8 fill-white" />
         </button>
       </header>
-      <main className="relative flex flex-1">
+      <main className="relative flex flex-1 bg-slate-700">
         <animated.div
           style={style}
-          className="absolute inset-0 z-10 flex -translate-x-full flex-col bg-gray-300 sm:hidden"
+          className="absolute inset-0 z-10 flex -translate-x-full flex-col bg-green-800 sm:hidden"
         >
           <SideNav user={user} onItemClick={() => setIsMenuOpen(false)} />
         </animated.div>
-        <div className="hidden sm:relative sm:flex sm:w-80 sm:translate-x-0 sm:flex-col sm:border-r sm:bg-gray-50">
+        <div className="hidden sm:relative sm:flex sm:w-80 sm:translate-x-0 sm:flex-col sm:border-r sm:border-yellow-500 sm:bg-green-800">
           <SideNav user={user} />
         </div>
         <div className="flex flex-1">

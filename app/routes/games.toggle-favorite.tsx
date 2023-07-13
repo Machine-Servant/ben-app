@@ -5,7 +5,6 @@ import { addOrRemoveGameFromFavorites, getGameDetails } from '~/modules/games';
 export const action = async ({ request }: ActionArgs) => {
   const userId = await getUserId(request);
   if (!userId) return json({ message: 'Unauthorized' }, { status: 401 });
-  console.log('!!!');
 
   const formData = await request.formData();
   const gameId = formData.get('gameId');

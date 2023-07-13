@@ -21,9 +21,9 @@ export const GamesSearch: React.FC<GamesSearchProps> = ({
   games,
 }) => {
   return (
-    <div className="flex flex-1 flex-col p-6">
-      <div>
-        <h1 className="mb-6 text-center text-3xl font-bold sm:text-6xl">
+    <div className="flex flex-1 flex-col p-6 lg:py-3">
+      <div className="flex flex-col lg:mb-6 lg:flex-row lg:items-center lg:justify-between">
+        <h1 className="mb-6 text-center text-3xl font-bold text-white sm:text-6xl lg:mb-0">
           Games we want to find
         </h1>
         <Form
@@ -44,7 +44,7 @@ export const GamesSearch: React.FC<GamesSearchProps> = ({
                 className="flex-1 rounded-full border border-slate-500 py-2 pl-12 pr-4"
               />
               <ReactForm.Submit
-                className="disabled:opacity-25"
+                className="text-white disabled:opacity-25"
                 disabled={navigationState === 'submitting'}
               >
                 Go
@@ -53,9 +53,10 @@ export const GamesSearch: React.FC<GamesSearchProps> = ({
           </ReactForm.Root>
         </Form>
       </div>
+      <hr className="mb-4" />
       <div className="mt-4 flex flex-1 flex-col">
         {searchTerm && (
-          <h2 className="mb-8 text-center text-2xl font-bold sm:text-4xl">
+          <h2 className="mb-8 text-center text-2xl font-bold text-white sm:text-left sm:text-4xl">
             Showing results for "{searchTerm}"
           </h2>
         )}

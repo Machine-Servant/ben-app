@@ -39,7 +39,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game, favorite }) => {
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="flex items-center gap-2">
             <div className="h-6 w-6 animate-spin rounded-full border-b-2 border-slate-600" />
-            <span className="text-slate-600">Loading...</span>
+            <span className="text-slate-400">Loading...</span>
           </div>
         </div>
       )}
@@ -52,7 +52,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game, favorite }) => {
           />
         ) : (
           <div className="flex h-60 w-full items-center justify-center border-b border-slate-400 lg:border-b-0 lg:border-r">
-            <h3 className="text-center text-xl font-bold text-slate-600">
+            <h3 className="text-center text-xl font-bold text-white">
               No image available
             </h3>
           </div>
@@ -61,8 +61,8 @@ export const GameCard: React.FC<GameCardProps> = ({ game, favorite }) => {
       <div className="flex flex-1 flex-col justify-between px-4 pb-4 lg:px-0 lg:py-4">
         <div className="flex justify-between">
           <div className="flex flex-col">
-            <h3 className="text-xl font-bold">{game.name}</h3>
-            <h4 className="text-sm font-semibold text-slate-600">
+            <h3 className="text-xl font-bold text-white">{game.name}</h3>
+            <h4 className="text-sm font-semibold text-slate-300">
               {game.released && dateFormatter.format(new Date(game.released))}
             </h4>
           </div>
@@ -92,7 +92,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game, favorite }) => {
           {game.platforms.map((platform) => (
             <span
               key={platform.platform.id}
-              className="mr-1 inline-block rounded bg-slate-600 px-2 py-1 text-xs font-semibold text-white"
+              className="mr-1 inline-block rounded bg-green-700 px-2 py-1 text-xs font-semibold text-white"
             >
               {platform.platform.name}
             </span>

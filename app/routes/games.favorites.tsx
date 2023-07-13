@@ -21,7 +21,10 @@ export default function Favorites() {
 
   return (
     <div className="flex-1 p-6">
-      <h1 className="mb-8 text-6xl font-bold">Games We Love</h1>
+      <h1 className="mb-6 pb-4 text-center text-3xl font-bold text-white sm:text-6xl lg:mb-0">
+        Games We Love
+      </h1>
+      <hr className="mb-4" />
       {favorites?.map((favorite) => (
         <FavoriteView
           favorite={favorite as unknown as Favorite}
