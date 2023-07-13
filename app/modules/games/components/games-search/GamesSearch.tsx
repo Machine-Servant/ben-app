@@ -1,3 +1,4 @@
+import type { Favorite } from '@prisma/client';
 import * as ReactForm from '@radix-ui/react-form';
 import { Form, Link } from '@remix-run/react';
 import { twMerge } from 'tailwind-merge';
@@ -10,11 +11,13 @@ interface GamesSearchProps {
   navigationState?: 'idle' | 'loading' | 'submitting';
   searchTerm?: string | null;
   games?: RawgListResponse<Game> | null;
+  favorites?: Favorite[] | null;
 }
 
 export const GamesSearch: React.FC<GamesSearchProps> = ({
   navigationState,
   searchTerm,
+  favorites,
   games,
 }) => {
   return (
@@ -58,7 +61,15 @@ export const GamesSearch: React.FC<GamesSearchProps> = ({
         )}
         {games &&
           games?.results?.length > 0 &&
-          games.results.map((game) => <GameCard key={game.id} game={game} />)}
+          games.results.map((game) => (
+            <GameCard
+              key={game.id}
+              game={game}
+              favorite={
+                !!favorites?.find((favorite) => favorite.gameId === game.id)
+              }
+            />
+          ))}
       </div>
       <div className="flex w-full items-center justify-between self-end">
         <Link
