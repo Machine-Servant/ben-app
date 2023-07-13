@@ -1,5 +1,6 @@
-import { Form, Link, useSubmit } from '@remix-run/react';
+import { Link, useFetcher } from '@remix-run/react';
 import { useCallback, useRef } from 'react';
+import { twMerge } from 'tailwind-merge';
 import { HeartFilledIcon, HeartIcon } from '~/components/icons';
 import type { Game } from '../../types';
 
@@ -16,21 +17,32 @@ export const GameCard: React.FC<GameCardProps> = ({ game, favorite }) => {
   });
 
   const formRef = useRef<HTMLFormElement>(null);
-  const submit = useSubmit();
+  const fetcher = useFetcher();
 
   const handleToggleFavorite = useCallback(
     (e: React.MouseEvent) => {
       e.preventDefault();
-      submit(formRef.current, { replace: true });
+      fetcher.submit(formRef.current, { replace: true });
     },
-    [submit]
+    [fetcher]
   );
 
   return (
     <Link
       to={`/games/${game.id}`}
-      className="mb-8 flex flex-col gap-4 overflow-hidden rounded-lg border border-slate-400 lg:flex-row"
+      className={twMerge(
+        'relative mb-8 flex flex-col gap-4 overflow-hidden rounded-lg border border-slate-400 lg:flex-row',
+        fetcher.state !== 'idle' && 'pointer-events-none opacity-50'
+      )}
     >
+      {fetcher.state !== 'idle' && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="flex items-center gap-2">
+            <div className="h-6 w-6 animate-spin rounded-full border-b-2 border-slate-600" />
+            <span className="text-slate-600">Loading...</span>
+          </div>
+        </div>
+      )}
       <div className="flex-none lg:w-96">
         {game.background_image ? (
           <img
@@ -55,12 +67,13 @@ export const GameCard: React.FC<GameCardProps> = ({ game, favorite }) => {
             </h4>
           </div>
           <div className="px-4">
-            <Form
+            <fetcher.Form
               ref={formRef}
               method="post"
-              action={`/games/${game.id}/favorite`}
+              action={`/games/toggle-favorite`}
             >
               <input type="hidden" name="gameId" value={game.id} />
+              <input type="hidden" name="redirectTo" value={`/games`} />
               {favorite ? (
                 <HeartFilledIcon
                   className="h-8 w-8 fill-current text-red-600"
@@ -72,7 +85,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game, favorite }) => {
                   onClick={handleToggleFavorite}
                 />
               )}
-            </Form>
+            </fetcher.Form>
           </div>
         </div>
         <div>

@@ -1,4 +1,4 @@
-import type { Favorite } from '@prisma/client';
+import type { Favorite, Prisma } from '@prisma/client';
 import { prisma } from '~/db.server';
 import type { RawgListResponse } from '~/types';
 import type { Game, GameDetails } from './types';
@@ -45,9 +45,10 @@ export async function getGameScreenshots(gameId: number): Promise<string[]> {
 }
 
 export async function addOrRemoveGameFromFavorites(
-  userId: string,
-  gameId: number
+  params: Prisma.FavoriteUncheckedCreateInput
 ): Promise<Favorite> {
+  const { userId, gameId } = params;
+
   const found = await prisma.favorite.findUnique({
     where: {
       userId_gameId: {
@@ -68,12 +69,7 @@ export async function addOrRemoveGameFromFavorites(
     });
   }
 
-  return prisma.favorite.create({
-    data: {
-      userId,
-      gameId,
-    },
-  });
+  return prisma.favorite.create({ data: params });
 }
 
 export async function getFavorites(userId: string): Promise<Favorite[]> {

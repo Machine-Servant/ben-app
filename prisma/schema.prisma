@@ -35,7 +35,9 @@ model Favorite {
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId String
 
-  gameId Int
+  gameId        Int
+  name          String  @default("Untitled")
+  screenshotUrl String?
 
   @@unique([userId, gameId])
 }
