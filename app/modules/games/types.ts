@@ -58,6 +58,12 @@ export type GameDetails = {
     metascore: number;
     url: string;
   }[];
+  genres: {
+    id: number;
+    name: string;
+    slug: string;
+    image_background: string;
+  }[];
   released: string;
   tba: boolean;
   updated: string;
@@ -112,6 +118,7 @@ export type GameDetails = {
       id: number;
       name: string;
       slug: string;
+      image_background: string;
     };
     released_at: string;
     requirements: {
@@ -119,4 +126,5 @@ export type GameDetails = {
       recommended: string;
     };
   }[];
+  dominant_color?: string;
 };
