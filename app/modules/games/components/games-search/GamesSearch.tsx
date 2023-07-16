@@ -29,7 +29,7 @@ export const GamesSearch: React.FC<GamesSearchProps> = ({
         <Form
           method="get"
           action="/games?index"
-          className="flex flex-col items-center"
+          className="mb-6 flex flex-col items-center lg:mb-0"
         >
           <ReactForm.Root asChild>
             <ReactForm.Field
