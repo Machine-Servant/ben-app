@@ -1,4 +1,6 @@
+import { ImageTag } from '~/components/image-tag';
 import type { GameDetails as GameDetailsType } from '../../types';
+import { ImageDialog } from './components/image-dialog';
 
 interface GameDetailsViewProps {
   gameDetails?: GameDetailsType | null;
@@ -32,19 +34,27 @@ export const GameDetailsView: React.FC<GameDetailsViewProps> = ({
         {gameDetails?.released &&
           dateFormatter.format(new Date(gameDetails.released))}
       </h4>
+      {gameDetails?.website && (
+        <h4 className="mb-6 text-center text-sm text-white underline">
+          <a href={gameDetails.website} target="_blank" rel="noreferrer">
+            Website
+          </a>
+        </h4>
+      )}
       <h2 className="mb-6 px-4 text-center text-2xl font-bold text-white sm:text-4xl lg:text-left">
         Platforms
       </h2>
       <div className="mb-6 flex flex-wrap items-center justify-around">
-        {gameDetails?.platforms.map((platform) => (
-          <div
-            key={platform.platform.id}
-            className="mb-2 rounded-full bg-green-700 px-2 py-1 font-bold"
-          >
-            <h4 className="text-center text-sm text-white">
-              {platform.platform.name}
-            </h4>
-          </div>
+        {gameDetails?.platforms.map(({ platform }) => (
+          <ImageTag key={platform.id} {...platform} />
+        ))}
+      </div>
+      <h2 className="mb-6 px-4 text-center text-2xl font-bold text-white sm:text-4xl lg:text-left">
+        Genres
+      </h2>
+      <div className="mb-6 flex flex-wrap items-center justify-around">
+        {gameDetails?.genres.map((genre) => (
+          <ImageTag key={genre.id} {...genre} />
         ))}
       </div>
       <h2 className="mb-6 px-4 text-center text-2xl font-bold text-white sm:text-4xl lg:text-left">
@@ -55,21 +65,21 @@ export const GameDetailsView: React.FC<GameDetailsViewProps> = ({
         dangerouslySetInnerHTML={{ __html: gameDetails?.description || '' }}
       />
       <h2 className="mb-6 px-4 text-center text-2xl font-bold text-white sm:text-4xl lg:text-left">
+        Details
+      </h2>
+      <h3 className="mb-6 px-4 text-lg font-bold text-white sm:text-xl lg:text-left">
+        Rating: {gameDetails?.rating}
+      </h3>
+      <h3 className="mb-6 px-4 text-lg font-bold text-white sm:text-xl lg:text-left">
+        Metacritic Rating: {gameDetails?.metacritic}
+      </h3>
+      <h2 className="mb-6 px-4 text-center text-2xl font-bold text-white sm:text-4xl lg:text-left">
         Screenshots
       </h2>
       {screenshots && screenshots.length > 0 ? (
         <div className="mb-6 flex flex-wrap items-center justify-around px-4">
           {screenshots.map((screenshot) => (
-            <div
-              key={screenshot}
-              className="mb-2 overflow-hidden rounded-lg border border-slate-400"
-            >
-              <img
-                className="h-60 w-full"
-                src={screenshot}
-                alt={gameDetails?.name}
-              />
-            </div>
+            <ImageDialog key={screenshot} image={screenshot} />
           ))}
         </div>
       ) : (
